@@ -91,13 +91,13 @@ PROJECT_ROOT=$(pwd)
 
 # Check .env file
 print_header "Checking Environment Configuration"
-if [ -f "./Chatty/.env" ]; then
+if [ -f "./backend/.env" ]; then
     print_success "Backend .env file found"
 else
-    print_error ".env file not found at ./Chatty/.env"
+    print_error ".env file not found at ./backend/.env"
     print_warning "Creating .env from template..."
     if [ -f "./.env.example" ]; then
-        cp ./.env.example ./Chatty/.env
+        cp ./.env.example ./backend/.env
         print_success ".env file created from template"
     else
         print_error "Could not create .env file"
@@ -107,7 +107,7 @@ fi
 
 # Install backend dependencies
 print_header "Installing Backend Dependencies"
-cd "$PROJECT_ROOT/Chatty"
+cd "$PROJECT_ROOT/backend"
 if [ ! -d "node_modules" ]; then
     print_warning "Backend dependencies not found. Installing..."
     npm install
@@ -129,7 +129,7 @@ fi
 
 # Check if database needs seeding
 print_header "Checking Database"
-cd "$PROJECT_ROOT/Chatty"
+cd "$PROJECT_ROOT/backend"
 # Try to verify database
 if npm run verify 2>/dev/null | grep -q "users"; then
     print_success "Database appears to be seeded"

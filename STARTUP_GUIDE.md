@@ -55,7 +55,7 @@ chmod +x startup.sh
 #### Step 1: Install Dependencies
 ```bash
 # Backend dependencies
-cd /home/hpaney/Chatty/Chatty
+cd /home/hpaney/Chatty/backend
 npm install
 
 # Frontend dependencies
@@ -65,14 +65,14 @@ npm install
 
 #### Step 2: Seed Database (First Time Only)
 ```bash
-cd /home/hpaney/Chatty/Chatty
+cd /home/hpaney/Chatty/backend
 npm run seed:all
 # This creates admin user and 16 demo users
 ```
 
 #### Step 3: Start Backend Server
 ```bash
-cd /home/hpaney/Chatty/Chatty
+cd /home/hpaney/Chatty/backend
 npm run dev
 # Server runs on http://localhost:5001
 ```

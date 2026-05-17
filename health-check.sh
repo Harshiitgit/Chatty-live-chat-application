@@ -51,7 +51,7 @@ if lsof -Pi :5001 -sTCP:LISTEN -t > /dev/null 2>&1; then
     fi
 else
     print_error "Backend is not running on port 5001"
-    print_warning "Start backend with: cd Chatty && npm run dev"
+    print_warning "Start backend with: cd backend && npm run dev"
 fi
 
 # Check if port 5173 is in use (Frontend)
@@ -88,11 +88,11 @@ fi
 
 # Check dependencies
 print_header "Dependencies Status"
-if [ -d "Chatty/node_modules" ]; then
+if [ -d "backend/node_modules" ]; then
     print_success "Backend dependencies installed"
 else
     print_warning "Backend dependencies not installed"
-    echo "   Run: cd Chatty && npm install"
+    echo "   Run: cd backend && npm install"
 fi
 
 if [ -d "frontend/node_modules" ]; then
@@ -104,10 +104,10 @@ fi
 
 # Check environment files
 print_header "Environment Configuration"
-if [ -f "Chatty/.env" ]; then
+if [ -f "backend/.env" ]; then
     print_success "Backend .env file exists"
-    MONGO_URI=$(grep MONGO_URI Chatty/.env | cut -d= -f2)
-    PORT=$(grep "^PORT=" Chatty/.env | cut -d= -f2)
+    MONGO_URI=$(grep MONGO_URI backend/.env | cut -d= -f2)
+    PORT=$(grep "^PORT=" backend/.env | cut -d= -f2)
     echo "   MongoDB URI: $MONGO_URI"
     echo "   Port: $PORT"
 else
@@ -119,11 +119,11 @@ print_header "Summary"
 echo ""
 echo "To start the application:"
 echo ""
-echo -e "${YELLOW}Terminal 1:${NC}"
-echo "  cd Chatty"
+echo -e "${YELLOW}Terminal 1 - Backend:${NC}"
+echo "  cd backend"
 echo "  npm run dev"
 echo ""
-echo -e "${YELLOW}Terminal 2:${NC}"
+echo -e "${YELLOW}Terminal 2 - Frontend:${NC}"
 echo "  cd frontend"
 echo "  npm run dev"
 echo ""
