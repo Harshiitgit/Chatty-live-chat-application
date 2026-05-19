@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useAdminStore } from "../Store/useAdminStore.js";
 import { useNavigate } from "react-router-dom";
 import { Trash2, Users, LogOut, Search, Loader2, Power, Activity, TrendingUp } from "lucide-react";
-import toast from "react-hot-toast";
 import BackButton from "../Components/BackButton";
 
 const AdminDashboardPage = () => {
@@ -25,7 +24,7 @@ const AdminDashboardPage = () => {
     };
 
     loadData();
-  }, [adminUser, navigate]);
+  }, [adminUser, navigate, getAllUsers, getDashboardStats, getWebsiteStatus]);
 
   const filteredUsers = users.filter(
     (user) =>

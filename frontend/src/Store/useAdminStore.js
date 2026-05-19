@@ -58,7 +58,7 @@ export const useAdminStore = create((set, get) => ({
             await axiosInstance.post("/admin/logout");
             set({ adminUser: null, users: [], stats: null, websiteStatus: null });
             toast.success("Logged out successfully");
-        } catch (error) {
+        } catch {
             toast.error("Logout failed");
         }
     },
@@ -69,7 +69,6 @@ export const useAdminStore = create((set, get) => ({
             set({ users: res.data });
         } catch (error) {
             console.log("Error fetching users:", error);
-            toast.error("Failed to fetch users");
         }
     },
 
@@ -88,8 +87,8 @@ export const useAdminStore = create((set, get) => ({
         try {
             const res = await axiosInstance.get("/admin/dashboard/stats");
             set({ stats: res.data });
-        } catch (error) {
-            console.log("Error fetching stats:", error);
+        } catch {
+            // Error fetching stats
         }
     },
 
@@ -97,8 +96,8 @@ export const useAdminStore = create((set, get) => ({
         try {
             const res = await axiosInstance.get("/admin/website-status");
             set({ websiteStatus: res.data });
-        } catch (error) {
-            console.log("Error fetching website status:", error);
+        } catch {
+            // Error fetching website status
         }
     },
 

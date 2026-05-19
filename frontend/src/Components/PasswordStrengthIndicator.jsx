@@ -9,13 +9,6 @@ const PasswordStrengthIndicator = ({ password }) => {
     return null;
   }
 
-  // Determine color based on strength
-  const getStrengthColor = () => {
-    if (strength === "Weak") return "text-error";
-    if (strength === "Medium") return "text-warning";
-    return "text-success";
-  };
-
   // Determine progress bar color
   const getProgressColor = () => {
     if (strength === "Weak") return "bg-error";

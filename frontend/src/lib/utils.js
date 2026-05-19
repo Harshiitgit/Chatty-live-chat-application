@@ -49,7 +49,7 @@ export function calculatePasswordStrength(password) {
     }
 
     // Special characters
-    if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+    if (/[!@#$%^&*()_+=[\]{};':"\\|,.<>/?-]/.test(password)) {
         score++;
         feedback.push("✓ Special chars");
     } else {

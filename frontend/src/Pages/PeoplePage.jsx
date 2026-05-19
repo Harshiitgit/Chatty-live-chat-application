@@ -19,14 +19,14 @@ const PeoplePage = () => {
 
   useEffect(() => {
     getAvailableUsers();
-  }, []);
+  }, [getAvailableUsers]);
 
   useEffect(() => {
     if (availableUsers.length > 0) {
       const userIds = availableUsers.map((u) => u._id);
       checkMultipleStatuses(userIds);
     }
-  }, [availableUsers]);
+  }, [availableUsers, checkMultipleStatuses]);
 
   const handleSendRequest = async (userId) => {
     setSendingTo(userId);

@@ -13,7 +13,7 @@ const FriendRequestsPage = () => {
 
   useEffect(() => {
     getPendingRequests();
-  }, []);
+  }, [getPendingRequests]);
 
   const handleAccept = async (requestId, senderId) => {
     setProcessingId(requestId);

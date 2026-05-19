@@ -17,7 +17,10 @@ const __dirname = path.resolve();
 
 // Middleware
 app.use(cors({
-    origin: ["http://localhost:5173", "http://localhost:5174"],
+    origin: function(origin, callback) {
+        // Allow all origins in development (or specify allowed IPs if needed)
+        callback(null, true);
+    },
     credentials:true, 
 }));
 
@@ -51,14 +54,15 @@ const startServer = async () => {
         await connectDB();
         console.log("✅ MongoDB Connected Successfully");
 
-        // Start listening on port
-        server.listen(PORT, () => {
+        // Start listening on port - listen on all interfaces (0.0.0.0)
+        server.listen(PORT, "0.0.0.0", () => {
             console.log(`\n${'='.repeat(50)}`);
             console.log(`🚀 Chatty Server Started Successfully`);
             console.log(`${'='.repeat(50)}`);
-            console.log(`📡 API Server running on: http://localhost:${PORT}`);
-            console.log(`🔌 WebSocket running on: ws://localhost:${PORT}`);
+            console.log(`📡 API Server running on: http://0.0.0.0:${PORT}`);
+            console.log(`🔌 WebSocket running on: ws://0.0.0.0:${PORT}`);
             console.log(`🌐 Frontend: http://localhost:5173`);
+            console.log(`✨ Accessible from other devices on your network`);
             console.log(`${'='.repeat(50)}\n`);
         });
 

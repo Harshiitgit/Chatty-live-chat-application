@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { MessageCircle, Users, Shield, Zap, Lock, Globe, ArrowRight, Sparkles, Heart, Rocket } from 'lucide-react';
 import { useAuthStore } from '../Store/useAuthStore';
 
 const HomePage = () => {
   const { authUser } = useAuthStore();
-  const navigate = useNavigate();
   const [hoveredFeature, setHoveredFeature] = useState(null);
 
   const features = [

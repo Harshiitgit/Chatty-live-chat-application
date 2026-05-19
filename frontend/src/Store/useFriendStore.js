@@ -105,6 +105,10 @@ export const useFriendStore = create((set, get) => ({
       // Update pending requests
       set((state) => ({
         pendingRequests: state.pendingRequests.filter((r) => r._id !== requestId),
+        friendRequestStatus: {
+          ...state.friendRequestStatus,
+          [senderId]: "none",
+        },
       }));
       
       return true;

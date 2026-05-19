@@ -1,7 +1,18 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import bcrypt from "bcryptjs";
 
 dotenv.config();
+
+// Import Admin model dynamically to avoid circular dependencies
+let Admin;
+const getAdminModel = async () => {
+    if (!Admin) {
+        const adminModule = await import("../models/admin.model.js");
+        Admin = adminModule.default;
+    }
+    return Admin;
+};
 
 const connectDB = async () => {
     try {
@@ -13,6 +24,9 @@ const connectDB = async () => {
             serverSelectionTimeoutMS: 5000,  // 5 second timeout for server selection
             socketTimeoutMS: 45000,           // 45 second timeout for socket
         });
+
+        // Initialize default admin account if it doesn't exist
+        await initializeDefaultAdmin();
 
         return conn;
     } catch (error) {
@@ -29,6 +43,46 @@ const connectDB = async () => {
         }
         
         throw error;  // Re-throw to be caught by caller
+    }
+};
+
+// Function to initialize default admin account
+const initializeDefaultAdmin = async () => {
+    try {
+        const AdminModel = await getAdminModel();
+        
+        // Check if admin already exists
+        const existingAdmin = await AdminModel.findOne({ adminId: "admin123" });
+        if (existingAdmin) {
+            return; // Admin already exists, no need to create
+        }
+
+        // Create default admin account
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash("admin@123", salt);
+
+        const defaultAdmin = new AdminModel({
+            adminId: "admin123",
+            password: hashedPassword,
+            email: "admin@chatty.com",
+            role: "admin",
+            isActive: true,
+            lastLogin: null
+        });
+
+        await defaultAdmin.save();
+        console.log("\n✅ Default Admin Account Initialized");
+        console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        console.log("Admin Portal Credentials:");
+        console.log("  📧 Admin ID: admin123");
+        console.log("  🔑 Password: admin@123");
+        console.log("  ✉️  Email: admin@chatty.com");
+        console.log("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
+    } catch (error) {
+        // Only log if it's not a duplicate key error (which means admin already exists)
+        if (error.code !== 11000) {
+            console.error("Warning: Could not initialize admin account:", error.message);
+        }
     }
 };
 

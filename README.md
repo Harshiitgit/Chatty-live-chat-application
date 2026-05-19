@@ -124,6 +124,22 @@ Chatty/
 - CORS configured properly
 - Admin access restriction
 
+## 🔑 Admin Portal Access
+
+The admin portal is automatically initialized when the server starts for the first time. You can access it using the following default credentials:
+
+**Admin Login Page**: `http://localhost:5173/admin/login`
+
+| Credential | Value |
+|-----------|-------|
+| Admin ID | `admin123` |
+| Password | `admin@123` |
+| Email | `admin@chatty.com` |
+
+**⚠️ Important Security Note**: These are default credentials for development. After your first login, **change these credentials immediately** for production use.
+
+The admin account is automatically created in the database when the backend server starts, ensuring all team members can access the admin portal without manual setup.
+
 ## 📚 Documentation
 
 - **[COMPLETE_INTEGRATION_REPORT.md](COMPLETE_INTEGRATION_REPORT.md)** - Full integration details and API documentation
